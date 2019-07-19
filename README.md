@@ -11,19 +11,11 @@ Requirements
 
 Usage
 -----
-1. Please create the following configuration files:
+1. Please set up the following configuration files:
    * `.javac-args`
    * `.javac-classpath`
    * `.javac-sourcepath`
 2. Just run `run.sh`
-
-How to include it into another project
---------------------------------------
-I recommend to create for example a executable script called `do.sh` with the following content:
-```bash
-#!/bin/bash
-curl -f -s -S https://raw.githubusercontent.com/vivi90/java-run/master/run.sh | bash -s -- "$@"
-```
 
 License
 -------

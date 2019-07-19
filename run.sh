@@ -4,6 +4,8 @@
 #                                                      #
 #             Java compile and run script              #
 #                                                      #
+#                    Version 2.0.0                     #
+#                                                      #
 #  2019 by Vivien Richter <vivien-richter@outlook.de>  #
 #  License: GPL                                        #
 #                                                      #
@@ -16,20 +18,22 @@ compileArgumentsFile=".javac-args"
 sourcepathFile=".javac-sourcepath"
 classpathFile=".javac-classpath"
 
-# Enable shell option 'extglob'
-shopt -s extglob
+# Preparing.
+sourceDirectory=$(cut -d : -f 1 $sourcepathFile)
+binaryDirectory=$(cut -d : -f 1 $classpathFile)
 
 # Cleaning.
-rm -r -f ./bin/!(.gitkeep|.|..)
-rm -f ./$projectName.jar
+rm -r -f $binaryDirectory
+mkdir -p $binaryDirectory
+touch $binaryDirectory/.gitkeep
+rm -f $binaryDirectory/$projectName.jar
 
 # Compiling.
-mkdir -p ./bin
-javac @$compileArgumentsFile -sourcepath @$sourcepathFile -classpath @$classpathFile ./src/$mainPackageName/Main.java
+javac @$compileArgumentsFile -sourcepath @$sourcepathFile -classpath @$classpathFile $sourceDirectory/$mainPackageName/Main.java
 
 # Packing.
-jar -cfe ./$projectName.jar $mainPackageName.Main -C ./bin .
-chmod +x ./$projectName.jar
+jar -cfe $binaryDirectory/$projectName.jar $mainPackageName.Main -C $binaryDirectory .
+chmod +x $binaryDirectory/$projectName.jar
 
 # Run.
-java -jar ./$projectName.jar
+java -jar $binaryDirectory/$projectName.jar

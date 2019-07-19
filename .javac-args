@@ -1,0 +1,3 @@
+-d ./bin
+-parameters
+-encoding UTF-8

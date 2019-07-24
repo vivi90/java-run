@@ -4,7 +4,7 @@
 #                                                      #
 #             Java compile and run script              #
 #                                                      #
-#                    Version 2.0.0                     #
+#                    Version 2.0.1                     #
 #                                                      #
 #  2019 by Vivien Richter <vivien-richter@outlook.de>  #
 #  License: GPL                                        #
@@ -23,9 +23,9 @@ sourceDirectory=$(cut -d : -f 1 $sourcepathFile)
 binaryDirectory=$(cut -d : -f 1 $classpathFile)
 
 # Cleaning.
-rm -r -f $binaryDirectory
+shopt -s extglob
 mkdir -p $binaryDirectory
-touch $binaryDirectory/.gitkeep
+rm -r -f $binaryDirectory/!(.gitkeep|.|..)
 rm -f $binaryDirectory/$projectName.jar
 
 # Compiling.
